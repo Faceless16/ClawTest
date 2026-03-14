@@ -15,6 +15,17 @@ class Item(BaseModel):
     Price: float # Inconsistent case
     category: str = "general"
 
+class OrderItem(BaseModel):
+    item_id: int
+    quantity: int # Bug: missing validation (e.g., gt=0)
+    price: float # Bug: missing validation
+
+class OrderCreate(BaseModel):
+    user_id: int # Bug: IDOR vulnerability potential if not verified against token
+    items: list[OrderItem]
+    total_amount: float
+    status: str = "pending"
+
 class LoginRequest(BaseModel):
     u: str
     p: str
