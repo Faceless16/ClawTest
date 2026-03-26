@@ -5,8 +5,10 @@ import models
 import auth
 import utils
 import uvicorn
+import orders
 
 app = FastAPI(title="Vulnerable API for AI Reviewer Testing")
+app.include_router(orders.router)
 
 # Globally mutable state - Bad practice
 request_count = 0
